@@ -126,7 +126,7 @@ export function MainApp() {
   const [openSection, setOpenSection] = useState('terms'); 
   const [openTerm, setOpenTerm] = useState('power'); 
 
-  // حالة قائمة الأجهزة المضافة للجدول (يمكن ترجمة أسماء الأجهزة الافتراضية إذا لزم الأمر)
+  // حالة قائمة الأجهزة المضافة للجدول
   const [deviceList, setDeviceList] = useState([
     { id: 1, name: t('main_app.default_devices.fridge'), watt: 150, qty: 1, hours: 24 },
     { id: 2, name: t('main_app.default_devices.led'), watt: 10, qty: 5, hours: 6 },
@@ -188,46 +188,48 @@ export function MainApp() {
       }`} 
       dir={i18n.dir()}
     >
-
-    <header className={`border-b sticky top-0 z-50 backdrop-blur-md transition-colors duration-300 ${
-      darkMode ? 'bg-slate-900/90 border-slate-800' : 'bg-white/90 border-slate-200'
-    }`}>
-      <div className="max-w-4xl mx-auto px-4 py-3.5 flex items-center justify-between">
-        
-        {/* الطرف الأيمن/الأيسر: زر اللغة والشعار الجانبي */}
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => i18n.changeLanguage(i18n.language === 'ar' ? 'en' : 'ar')}
-            className={`px-3 py-1.5 rounded-xl border text-xs font-bold flex items-center gap-1.5 cursor-pointer ${
-              darkMode ? 'bg-slate-800 border-slate-700 text-slate-200' : 'bg-slate-100 border-slate-200 text-slate-700'
-            }`}
-          >
-            🌐 {i18n.language === 'ar' ? 'English' : 'العربية'}
-          </button>
-
-          <span className={`text-xs font-semibold px-2.5 py-1 rounded-full border hidden sm:flex items-center gap-1.5 ${
-            darkMode ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : 'bg-emerald-50 text-emerald-600 border-emerald-200'
-          }`}>
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-            {t('main_app.version_tag', 'v1.0 إنساني وخالي من التعقيد')}
-          </span>
-        </div>
-
-        {/* المنتصف: الشعار فقط بدون تداخل */}
-        <div className="flex items-center gap-2 group cursor-pointer">
-          <div className="p-2 bg-gradient-to-tr from-amber-500 to-amber-300 rounded-xl shadow-md text-slate-950">
-            <Sun className="w-5 h-5 stroke-[2.5]" />
-          </div>
-          <div className="text-center">
-            <h1 className={`font-extrabold text-base sm:text-lg leading-tight ${darkMode ? 'text-white' : 'text-slate-900'}`}>
-              SolarFlow Pro
-            </h1>
-            <p className="text-[10px] text-amber-500 font-bold tracking-wide">
-              {t('main_app.app_subtitle', 'دليلك الشامل لتصميم وبرمجة المنظومات الشمسية')}
-            </p>
-          </div>
-        </div>
+      {/* 🔝 الهيدر العلوي */}
+      <header className={`border-b sticky top-0 z-50 backdrop-blur-md transition-colors duration-300 ${
+        darkMode ? 'bg-slate-900/90 border-slate-800' : 'bg-white/90 border-slate-200'
+      }`}>
+        <div className="max-w-4xl mx-auto px-4 py-3.5 flex items-center justify-between">
+          
+          {/* الطرف الأيمن/الأيسر: زر اللغة والشعار الجانبي */}
+          <div className="flex items-center gap-2">
             <button
+              onClick={() => i18n.changeLanguage(i18n.language === 'ar' ? 'en' : 'ar')}
+              className={`px-3 py-1.5 rounded-xl border text-xs font-bold flex items-center gap-1.5 cursor-pointer ${
+                darkMode ? 'bg-slate-800 border-slate-700 text-slate-200' : 'bg-slate-100 border-slate-200 text-slate-700'
+              }`}
+            >
+              🌐 {i18n.language === 'ar' ? 'English' : 'العربية'}
+            </button>
+
+            <span className={`text-xs font-semibold px-2.5 py-1 rounded-full border hidden sm:flex items-center gap-1.5 ${
+              darkMode ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : 'bg-emerald-50 text-emerald-600 border-emerald-200'
+            }`}>
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+              {t('main_app.version_tag', 'v1.0 إنساني وخالي من التعقيد')}
+            </span>
+          </div>
+
+          {/* المنتصف: الشعار فقط */}
+          <div className="flex items-center gap-2 group cursor-pointer">
+            <div className="p-2 bg-gradient-to-tr from-amber-500 to-amber-300 rounded-xl shadow-md text-slate-950">
+              <Sun className="w-5 h-5 stroke-[2.5]" />
+            </div>
+            <div className="text-center">
+              <h1 className={`font-extrabold text-base sm:text-lg leading-tight ${darkMode ? 'text-white' : 'text-slate-900'}`}>
+                SolarFlow Pro
+              </h1>
+              <p className="text-[10px] text-amber-500 font-bold tracking-wide">
+                {t('main_app.app_subtitle', 'دليلك الشامل لتصميم وبرمجة المنظومات الشمسية')}
+              </p>
+            </div>
+          </div>
+
+          {/* زر المظهر (Dark Mode) */}
+          <button
             onClick={() => setDarkMode(!darkMode)}
             className={`p-2.5 rounded-xl border transition-all duration-300 cursor-pointer flex items-center justify-center ${
               darkMode 
@@ -240,7 +242,7 @@ export function MainApp() {
           </button>
         </div>
 
-      {/* 🔀 شريط التبويبات الرئيسية المترجم تلقائياً */}
+        {/* 🔀 شريط التبويبات الرئيسية */}
         <div className="max-w-4xl mx-auto px-4 pb-3">
           <div className={`p-1.5 rounded-2xl flex gap-1.5 border transition-colors ${
             darkMode ? 'bg-slate-900 border-slate-800' : 'bg-slate-100 border-slate-200'
@@ -287,7 +289,6 @@ export function MainApp() {
 
           </div>
         </div>
-        
       </header>
 
       {/* 📦 المحتوى الرئيسي */}
@@ -296,6 +297,8 @@ export function MainApp() {
         {/* 1️⃣ دليل المفاهيم */}
         {activeTab === 'guide' && (
           <div className="space-y-4">
+            
+            {/* 1.1 المصطلحات الأساسية */}
             <div className={`rounded-2xl border transition-colors ${
               darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'
             }`}>
@@ -309,7 +312,6 @@ export function MainApp() {
                     <div className="p-2 bg-white/20 rounded-xl transition-transform duration-200 ltr:group-hover:translate-x-1 rtl:group-hover:-translate-x-1">
                       <Zap className="w-5 h-5 text-white" />
                     </div>
-                    
                     <span className="font-bold text-lg md:text-xl text-white">
                       {t('main_app.guide.basic_concepts_title')}
                     </span>
@@ -335,7 +337,12 @@ export function MainApp() {
                     {openTerm === 'voltage' && (
                       <div className="p-4 border-t border-slate-200/40 dark:border-slate-700/60 space-y-3">
                         <div className={`p-2 rounded-lg border text-center ${darkMode ? 'bg-slate-900 border-slate-700' : 'bg-white border-slate-200'}`}>
-                          <img src="./assets/img/image_voltage.png" alt="Voltage" onError={(e) => handleImageError(e, t('main_app.guide.voltage.img_alt'))} className="max-h-48 mx-auto object-contain" />
+                          <img 
+                            src={`./assets/img/image_voltage_${i18n.language.startsWith('ar') ? 'ar' : 'en'}.png`} 
+                            alt="Voltage" 
+                            onError={(e) => handleImageError(e, t('main_app.guide.voltage.img_alt'))} 
+                            className="max-h-48 mx-auto object-contain" 
+                          />
                         </div>
                         <div className="space-y-2 text-xs sm:text-sm leading-relaxed opacity-90">
                           <p>
@@ -358,7 +365,12 @@ export function MainApp() {
                     {openTerm === 'current' && (
                       <div className="p-4 border-t border-slate-200/40 dark:border-slate-700/60 space-y-3">
                         <div className={`p-2 rounded-lg border text-center ${darkMode ? 'bg-slate-900 border-slate-700' : 'bg-white border-slate-200'}`}>
-                          <img src="./assets/img/image_current.png" alt="Current" onError={(e) => handleImageError(e, t('main_app.guide.current.img_alt'))} className="max-h-48 mx-auto object-contain" />
+                          <img 
+                            src={`./assets/img/image_current_${i18n.language.startsWith('ar') ? 'ar' : 'en'}.png`} 
+                            alt="Current" 
+                            onError={(e) => handleImageError(e, t('main_app.guide.current.img_alt'))} 
+                            className="max-h-48 mx-auto object-contain" 
+                          />
                         </div>
                         <p className="text-xs sm:text-sm leading-relaxed opacity-90">
                           <strong>{t('main_app.guide.analogy_label')}:</strong> {t('main_app.guide.current.analogy')}
@@ -370,7 +382,7 @@ export function MainApp() {
                       </div>
                     )}
                   </div>
-                  
+
                   {/* القدرة */}
                   <div className={`rounded-xl border transition-colors ${darkMode ? 'bg-slate-800/50 border-slate-700' : 'bg-slate-50 border-slate-200'}`}>
                     <button onClick={() => toggleTerm('power')} className="group w-full p-3.5 flex items-center justify-between cursor-pointer">
@@ -383,20 +395,25 @@ export function MainApp() {
                     {openTerm === 'power' && (
                       <div className="p-4 border-t border-slate-200/40 dark:border-slate-700/60 space-y-3">
                         <div className={`p-2 rounded-lg border text-center ${darkMode ? 'bg-slate-900 border-slate-700' : 'bg-white border-slate-200'}`}>
-                          <img src="./assets/img/image_power.png" alt="Power" onError={(e) => handleImageError(e, t('main_app.guide.power.img_alt'))} className="max-h-48 mx-auto object-contain" />
+                          <img 
+                            src={`./assets/img/image_power_${i18n.language.startsWith('ar') ? 'ar' : 'en'}.png`} 
+                            alt="Power" 
+                            onError={(e) => handleImageError(e, t('main_app.guide.power.img_alt'))} 
+                            className="max-h-48 mx-auto object-contain" 
+                          />
                         </div>
                         <div className="space-y-2 text-xs sm:text-sm leading-relaxed opacity-90">
                           <p><strong>{t('main_app.guide.concept_label')}:</strong> {t('main_app.guide.power.concept')}</p>
                         </div>
                       </div>
                     )}
-                  </div> 
+                  </div>
 
                 </div>
-              )} 
+              )}
             </div>
 
-            {/* 2. أنواع البطاريات */}
+            {/* 1.2 أنواع البطاريات */}
             <button
               onClick={() => toggleSection('batteries')}
               className={`w-full p-4 rounded-xl flex justify-between items-center shadow-lg transition-all cursor-pointer ${
@@ -435,7 +452,7 @@ export function MainApp() {
                     <div className={`p-4 border-t space-y-3.5 transition-all ${darkMode ? 'border-slate-800 bg-amber-950/10' : 'border-slate-200/80 bg-amber-50/30'}`}>
                       <div className={`p-3 rounded-lg border text-center transition-all ${darkMode ? 'bg-slate-950/80 border-slate-800/80' : 'bg-white border-slate-200/80 shadow-xs'}`}>
                         <img 
-                          src="./assets/img/image_acid_battery.png" 
+                          src={`./assets/img/image_acid_battery_${i18n.language.startsWith('ar') ? 'ar' : 'en'}.png`} 
                           alt="Flooded Lead-Acid Battery" 
                           onError={(e) => handleImageError(e, t('main_app.guide.batteries.acid.img_alt'))} 
                           className="max-h-48 mx-auto object-contain rounded-md hover:scale-[1.02] transition-transform duration-200" 
@@ -465,7 +482,12 @@ export function MainApp() {
                   {openTerm === 'gel_battery' && (
                     <div className={`p-4 border-t space-y-3 ${darkMode ? 'border-slate-800 bg-blue-950/20' : 'border-slate-100 bg-blue-50/20'}`}>
                       <div className={`p-3 rounded-lg border text-center ${darkMode ? 'bg-slate-950 border-slate-800' : 'bg-white border-blue-200'}`}>
-                        <img src="./assets/img/image_gel_battery.png" alt="Gel Battery" onError={(e) => handleImageError(e, t('main_app.guide.batteries.gel.img_alt'))} className="w-full h-auto max-h-56 object-contain rounded-md" />
+                        <img 
+                          src={`./assets/img/image_gel_battery_${i18n.language.startsWith('ar') ? 'ar' : 'en'}.png`} 
+                          alt="Gel Battery" 
+                          onError={(e) => handleImageError(e, t('main_app.guide.batteries.gel.img_alt'))} 
+                          className="w-full h-auto max-h-56 object-contain rounded-md" 
+                        />
                       </div>
                       <div className={`p-3 rounded-lg text-xs sm:text-sm flex items-center gap-2.5 ${darkMode ? 'bg-blue-950/50 text-blue-200 border border-blue-800/40' : 'bg-blue-100/60 text-blue-900'}`}>
                         <Lightbulb className="w-5 h-5 text-blue-500 shrink-0" />
@@ -487,7 +509,12 @@ export function MainApp() {
                   {openTerm === 'lithium_battery' && (
                     <div className={`p-4 border-t space-y-3 ${darkMode ? 'border-slate-800 bg-emerald-950/20' : 'border-slate-100 bg-emerald-50/20'}`}>
                       <div className={`p-3 rounded-lg border text-center ${darkMode ? 'bg-slate-950 border-slate-800' : 'bg-white border-emerald-200'}`}>
-                        <img src="./assets/img/image_lithium_battery.png" alt="Lithium Battery" onError={(e) => handleImageError(e, t('main_app.guide.batteries.lithium.img_alt'))} className="w-full h-auto max-h-56 object-contain rounded-md" />
+                        <img 
+                          src={`./assets/img/image_lithium_battery_${i18n.language.startsWith('ar') ? 'ar' : 'en'}.png`} 
+                          alt="Lithium Battery" 
+                          onError={(e) => handleImageError(e, t('main_app.guide.batteries.lithium.img_alt'))} 
+                          className="w-full h-auto max-h-56 object-contain rounded-md" 
+                        />
                       </div>
                       <div className={`p-3 rounded-lg text-xs sm:text-sm flex items-center gap-2.5 ${darkMode ? 'bg-emerald-950/50 text-emerald-200 border border-emerald-800/40' : 'bg-emerald-100/60 text-emerald-900'}`}>
                         <Lightbulb className="w-5 h-5 text-emerald-500 shrink-0" />
@@ -498,8 +525,8 @@ export function MainApp() {
                 </div>
               </div>
             )}
-            
-            {/* 3. أنواع الألواح الشمسية */}
+
+            {/* 1.3 أنواع الألواح الشمسية */}
             <button
               onClick={() => toggleSection('panels')}
               className={`w-full p-4 rounded-xl flex justify-between items-center shadow-lg transition-all cursor-pointer ${
@@ -515,6 +542,7 @@ export function MainApp() {
 
             {openSection === 'panels' && (
               <div className="space-y-3 px-2 ltr:border-l-2 rtl:border-r-2 border-emerald-500/50">
+                
                 {/* Mono */}
                 <div className={`border rounded-xl overflow-hidden transition-colors ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
                   <button onClick={() => toggleTerm('mono_panel')} className="w-full p-4 flex justify-between items-center hover:bg-slate-50/10 transition-colors ltr:text-left rtl:text-right cursor-pointer">
@@ -527,7 +555,12 @@ export function MainApp() {
                   {openTerm === 'mono_panel' && (
                     <div className={`p-4 border-t space-y-3 ${darkMode ? 'border-slate-800 bg-slate-950/50' : 'border-slate-100 bg-slate-50'}`}>
                       <div className={`p-3 rounded-lg border text-center ${darkMode ? 'bg-slate-950 border-slate-800' : 'bg-white border-slate-200'}`}>
-                        <img src="./assets/img/image_mono_panel.png" alt="Monocrystalline Panel" onError={(e) => handleImageError(e, t('main_app.guide.panels.mono.img_alt'))} className="w-full h-auto max-h-56 object-contain rounded-md" />
+                        <img 
+                          src={`./assets/img/image_mono_panel_${i18n.language.startsWith('ar') ? 'ar' : 'en'}.png`} 
+                          alt="Monocrystalline Panel" 
+                          onError={(e) => handleImageError(e, t('main_app.guide.panels.mono.img_alt'))} 
+                          className="w-full h-auto max-h-56 object-contain rounded-md" 
+                        />
                       </div>
                       <div className={`p-3 rounded-lg text-xs sm:text-sm flex items-center gap-2.5 ${darkMode ? 'bg-slate-800 text-slate-200 border border-slate-700' : 'bg-slate-100 text-slate-900'}`}>
                         <Lightbulb className="w-5 h-5 text-amber-500 shrink-0" />
@@ -549,7 +582,12 @@ export function MainApp() {
                   {openTerm === 'poly_panel' && (
                     <div className={`p-4 border-t space-y-3 ${darkMode ? 'border-slate-800 bg-blue-950/20' : 'border-slate-100 bg-blue-50/20'}`}>
                       <div className={`p-3 rounded-lg border text-center ${darkMode ? 'bg-slate-950 border-slate-800' : 'bg-white border-blue-200'}`}>
-                        <img src="./assets/img/image_poly_panel.png" alt="Polycrystalline Panel" onError={(e) => handleImageError(e, t('main_app.guide.panels.poly.img_alt'))} className="w-full h-auto max-h-56 object-contain rounded-md" />
+                        <img 
+                          src={`./assets/img/image_poly_panel_${i18n.language.startsWith('ar') ? 'ar' : 'en'}.png`} 
+                          alt="Polycrystalline Panel" 
+                          onError={(e) => handleImageError(e, t('main_app.guide.panels.poly.img_alt'))} 
+                          className="w-full h-auto max-h-56 object-contain rounded-md" 
+                        />
                       </div>
                       <div className={`p-3 rounded-lg text-xs sm:text-sm flex items-center gap-2.5 ${darkMode ? 'bg-blue-950/50 text-blue-200 border border-blue-800/40' : 'bg-blue-100/60 text-blue-900'}`}>
                         <Lightbulb className="w-5 h-5 text-blue-500 shrink-0" />
@@ -571,7 +609,12 @@ export function MainApp() {
                   {openTerm === 'flex_panel' && (
                     <div className={`p-4 border-t space-y-3 ${darkMode ? 'border-slate-800 bg-purple-950/20' : 'border-slate-100 bg-purple-50/20'}`}>
                       <div className={`p-3 rounded-lg border text-center ${darkMode ? 'bg-slate-950 border-slate-800' : 'bg-white border-purple-200'}`}>
-                        <img src="./assets/img/image_flexible_panel.png" alt="Flexible Panel" onError={(e) => handleImageError(e, t('main_app.guide.panels.flexible.img_alt'))} className="w-full h-auto max-h-56 object-contain rounded-md" />
+                        <img 
+                          src={`./assets/img/image_flexible_panel_${i18n.language.startsWith('ar') ? 'ar' : 'en'}.png`} 
+                          alt="Flexible Panel" 
+                          onError={(e) => handleImageError(e, t('main_app.guide.panels.flexible.img_alt'))} 
+                          className="w-full h-auto max-h-56 object-contain rounded-md" 
+                        />
                       </div>
                       <div className={`p-3 rounded-lg text-xs sm:text-sm flex items-center gap-2.5 ${darkMode ? 'bg-purple-950/50 text-purple-200 border border-purple-800/40' : 'bg-purple-100/60 text-purple-900'}`}>
                         <Lightbulb className="w-5 h-5 text-purple-500 shrink-0" />
@@ -580,8 +623,10 @@ export function MainApp() {
                     </div>
                   )}
                 </div>
+
               </div>
             )}
+
           </div>
         )}
 
@@ -610,14 +655,19 @@ export function MainApp() {
   );
 }
 
+// تهيئة جذر تطبيق React 18
 const rootElement = document.getElementById('root');
 
-if (!rootElement._reactRootContainer) {
-  rootElement._reactRootContainer = ReactDOM.createRoot(rootElement);
-}
+if (rootElement) {
+  let root = rootElement._reactRoot;
+  if (!root) {
+    root = ReactDOM.createRoot(rootElement);
+    rootElement._reactRoot = root;
+  }
 
-rootElement._reactRootContainer.render(
-  <React.StrictMode>
-    <MainApp />
-  </React.StrictMode>
-);
+  root.render(
+    <React.StrictMode>
+      <MainApp />
+    </React.StrictMode>
+  );
+}

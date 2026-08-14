@@ -3,8 +3,8 @@ import react from '@vitejs/plugin-react'
 import path from 'path'
 
 export default defineConfig({
-  // 🟢 السطر الإضافي المطلوب لنشر التطبيق بنجاح على GitHub Pages
-  base: '/Solar-Guide/',
+  // 🟢 تعديل المسار الأساسي لبطابق اسم مستودع Solar-Flow-Pro
+  base: '/Solar-Flow-Pro/',
 
   plugins: [react()],
   root: process.cwd(),
